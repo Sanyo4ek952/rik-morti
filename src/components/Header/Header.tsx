@@ -5,13 +5,6 @@ export const Header = () => {
     return (
         <header className={s.header}>
             <h1 className='logo'>Rick & Morty <span className={s.blueColor}>WiKi</span></h1>
-            <nav>
-                <ul className={s.list}>
-
-
-
-                </ul>
-            </nav>
         </header>
     );
 };

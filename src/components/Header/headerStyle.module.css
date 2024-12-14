@@ -1,11 +1,11 @@
 .header{
-    font-size: 28px;
+    font-size: 10px;
     display: flex;
     justify-content: space-between;
     padding: 20px 15px;
     background-color: grey;
     color: white;
-    margin-bottom: 60px;
+    margin-bottom: 20px;
 }
 .blueColor{
     color: blue;

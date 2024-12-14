@@ -5,6 +5,7 @@ import {useDispatch, useSelector} from "react-redux";
 import {setProducts} from "../model/productsSlice";
 import {Card} from "../../../components/Card/Card";
 import {AppRootStateType} from "../../../app/store";
+import {Link, NavLink} from "react-router-dom";
 
 export const Products = () => {
     const dispatch = useDispatch();
@@ -21,19 +22,24 @@ export const Products = () => {
     }, [dispatch]);
 
     return (
-        <div className={s.container}>
-            <button disabled={!isLiked} onClick={() => setIsLiked(false)}>all</button>
-            <button disabled={isLiked} onClick={() => setIsLiked(true)}>like</button>
-            {filteredProducts.length > 0 ? filteredProducts.map((product: CharacterType) => {
-                return (<Card key={product.id}
-                              imageUrl={product.image}
+        <>
+            <div>
+                <button className={s.button} disabled={!isLiked} onClick={() => setIsLiked(false)}>all</button>
+                <button className={s.button} disabled={isLiked} onClick={() => setIsLiked(true)}>like</button>
+            </div>
+            <div className={s.container}>
+
+                {filteredProducts.length > 0 ? filteredProducts.map((product: CharacterType) => {
+                    return (<NavLink to={`/products/${product.id}`}>
+                        <Card key={product.id} imageUrl={product.image}
                               name={product.name}
                               location={product.location}
                               status={product.status}
-                              item={product}
-                />)
-            }) : 'No character found'}
-        </div>
+                              item={product}/>
+                    </NavLink>)
+                }) : 'No character found'}
+            </div>
+        </>
     );
 }
 
