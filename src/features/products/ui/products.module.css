@@ -2,6 +2,7 @@
   display: grid;
   grid-template-columns: repeat(3, 225px);
   gap: 30px;
+  margin-bottom: 20px;
 }
 .button{
   width: 100px;

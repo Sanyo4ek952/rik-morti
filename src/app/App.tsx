@@ -10,7 +10,7 @@ import {useDispatch} from "react-redux";
 function App() {
     const dispatch = useDispatch()
     useEffect(() => {
-        rikAndMortiAPI.getCharacter().then(
+        rikAndMortiAPI.getCharacter(1).then(
             result => {
                 dispatch(setProducts(result.data.results))
             }

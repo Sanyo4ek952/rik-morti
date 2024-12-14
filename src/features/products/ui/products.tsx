@@ -1,31 +1,59 @@
-import {useState} from "react";
+import { useState, useEffect } from "react";
+import { Pagination } from "@mui/material";  // Импортируем компонент пагинации из MUI
 import s from "./products.module.css";
-import {CharacterType} from "../api/productsApi";
-import {useSelector} from "react-redux";
-import {Card} from "../../../components/Card/Card";
-import {AppRootStateType} from "../../../app/store";
-import {Link, NavLink} from "react-router-dom";
+import { CharacterType, rikAndMortiAPI, ResponseType } from "../api/productsApi";
+import { useDispatch, useSelector } from "react-redux";
+import { setProducts } from "../model/productsSlice";
+import { Card } from "../../../components/Card/Card";
+import { AppRootStateType } from "../../../app/store";
+import { Link, NavLink } from "react-router-dom";
 
 export const Products = () => {
+    const dispatch = useDispatch();
     const products = useSelector<AppRootStateType, CharacterType[]>(state => state.products.results);
 
     const [isLiked, setIsLiked] = useState(false);
-    const [statusFilter, setStatusFilter] = useState<string>(""); // Фильтр по статусу
-    const [speciesFilter, setSpeciesFilter] = useState<string>(""); // Фильтр по виду
-    const [genderFilter, setGenderFilter] = useState<string>(""); // Фильтр по полу
-    const [searchText, setSearchText] = useState<string>(""); // Текст для поиска
+    const [statusFilter, setStatusFilter] = useState<string>("");
+    const [speciesFilter, setSpeciesFilter] = useState<string>("");
+    const [genderFilter, setGenderFilter] = useState<string>("");
+    const [searchText, setSearchText] = useState<string>("");
+    const [currentPage, setCurrentPage] = useState(1);  // Текущая страница
+    const [totalPages, setTotalPages] = useState(1);  // Общее количество страниц
 
+    // Фильтрация продуктов
     const filteredProducts = products.filter(product => {
         const matchesLiked = isLiked ? product.like === true : true;
         const matchesStatus = statusFilter ? product.status === statusFilter : true;
         const matchesSpecies = speciesFilter ? product.species === speciesFilter : true;
         const matchesGender = genderFilter ? product.gender === genderFilter : true;
         const matchesSearch = searchText
-            ? product.name.toLowerCase().includes(searchText.toLowerCase()) // Поиск по имени, нечувствительный к регистру
+            ? product.name.toLowerCase().includes(searchText.toLowerCase())
             : true;
 
         return matchesLiked && matchesStatus && matchesSpecies && matchesGender && matchesSearch;
     });
+
+    // Функция для загрузки данных с учётом пагинации
+    const fetchData = async (page: number) => {
+        try {
+            const response = await rikAndMortiAPI.getCharacter(page);  // Передаём номер страницы в API запрос
+            const data: ResponseType = response.data;
+            dispatch(setProducts(data.results));  // Сохраняем данные в Redux
+            setTotalPages(data.info.pages);  // Устанавливаем общее количество страниц
+        } catch (error) {
+            console.error("Error fetching data", error);
+        }
+    };
+
+    // Запрос данных при смене текущей страницы
+    useEffect(() => {
+        fetchData(currentPage);  // Загружаем данные для текущей страницы
+    }, [currentPage]);
+
+    // Обработчик изменения страницы
+    const handleChangePage = (event: React.ChangeEvent<unknown>, page: number) => {
+        setCurrentPage(page);  // Обновляем текущую страницу
+    };
 
     return (
         <>
@@ -51,7 +79,7 @@ export const Products = () => {
                     type="text"
                     placeholder="Search by name..."
                     value={searchText}
-                    onChange={(e) => setSearchText(e.target.value)} // Обновляем состояние поиска
+                    onChange={(e) => setSearchText(e.target.value)}
                     className={s.searchInput}
                 />
             </div>
@@ -93,6 +121,12 @@ export const Products = () => {
                     "No character found"
                 )}
             </div>
+            <Pagination
+                count={totalPages}
+                page={currentPage}
+                onChange={handleChangePage}
+                color="primary"
+            />
         </>
     );
 };

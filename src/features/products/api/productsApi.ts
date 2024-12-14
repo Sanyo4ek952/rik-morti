@@ -15,8 +15,8 @@ export type ResponseType = {
     results: CharacterType[]
 }
 export const rikAndMortiAPI = {
-    getCharacter: () => {
-        return instance.get<ResponseType>('character')
+    getCharacter: (page: number) => {
+        return instance.get<ResponseType>(`character?page=${page}`);
     },
 }
 
