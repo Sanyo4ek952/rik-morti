@@ -1,15 +1,15 @@
 {
   "files": {
     "main.css": "/rik-morti/static/css/main.609cfe97.css",
-    "main.js": "/rik-morti/static/js/main.248e8824.js",
+    "main.js": "/rik-morti/static/js/main.b7d9e4ce.js",
     "static/js/453.ed3810f9.chunk.js": "/rik-morti/static/js/453.ed3810f9.chunk.js",
     "index.html": "/rik-morti/index.html",
     "main.609cfe97.css.map": "/rik-morti/static/css/main.609cfe97.css.map",
-    "main.248e8824.js.map": "/rik-morti/static/js/main.248e8824.js.map",
+    "main.b7d9e4ce.js.map": "/rik-morti/static/js/main.b7d9e4ce.js.map",
     "453.ed3810f9.chunk.js.map": "/rik-morti/static/js/453.ed3810f9.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.609cfe97.css",
-    "static/js/main.248e8824.js"
+    "static/js/main.b7d9e4ce.js"
   ]
 }
