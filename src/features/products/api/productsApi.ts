@@ -18,19 +18,6 @@ export const rikAndMortiAPI = {
     getCharacter: () => {
         return instance.get<ResponseType>('character')
     },
-    getEpisode: () => {
-        return instance.get('episode')
-    },
-    getStatusCharacter: (arg:{filter: string, value: string}) => {
-        return instance.get(`character/?${arg.filter}=${arg.value}`)
-    },
-    getSpeciesCharacter: (arg: string) => {
-        return instance.get(`character/?species=${arg}`)
-    },
-    getCharacterBySearchParams:(arg: { status: string,species: string,gender:string}) => {
-        return instance.get(`character/?status=${arg.status}&species=${arg.species}&gender=${arg.gender}`)
-        // return instance.get(`character/?status=alive&species=animal`)
-    }
 }
 
 

@@ -18,11 +18,11 @@ type CharacterPropsType = {
 
 export const Card = ({item, status}: CharacterPropsType) => {
     const dispatch = useDispatch();
-    const deleteCard = (event:React.MouseEvent<HTMLButtonElement>,id: number) => {
+    const deleteCard = (event: React.MouseEvent<HTMLButtonElement>, id: number) => {
         event.preventDefault()
         dispatch(dellProduct({id}))
     }
-    const setLike = (event:React.MouseEvent<HTMLButtonElement>, id: number, like: boolean) => {
+    const setLike = (event: React.MouseEvent<HTMLButtonElement>, id: number, like: boolean) => {
         event.preventDefault()
         dispatch(setLikeProducts({id, like}))
     }
@@ -37,7 +37,8 @@ export const Card = ({item, status}: CharacterPropsType) => {
                     accusantium atque reprehenderit saepe sint vero!
 
                 </div>
-                <button className={`${s.like} ${item.like ? s.active : ''} `} onClick={(event) => setLike(event,item.id, true)}>
+                <button className={`${s.like} ${item.like ? s.active : ''} `}
+                        onClick={(event) => setLike(event, item.id, true)}>
                     <svg width="24" height="24" viewBox="0 0 24 24" fill="inherit" xmlns="http://www.w3.org/2000/svg">
                         <g clipPath="url(#clip0_306_4260)">
                             <path
@@ -52,7 +53,7 @@ export const Card = ({item, status}: CharacterPropsType) => {
                     </svg>
                 </button>
             </div>
-            <button className={s.deleteCard} onClick={(event) => deleteCard(event,item.id)}>Х</button>
+            <button className={s.deleteCard} onClick={(event) => deleteCard(event, item.id)}>Х</button>
 
         </div>
     );

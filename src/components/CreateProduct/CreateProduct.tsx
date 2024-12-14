@@ -5,20 +5,19 @@ import {setProduct} from "../../features/products/model/productsSlice";
 import {Link} from "react-router-dom";
 import {Alert, Snackbar} from "@mui/material";
 
-// Определяем тип данных для формы
+
 type FormData = {
-    image: string; // URL изображения
-    name: string; // Имя
-    location: string; // Локация
+    image: string;
+    name: string;
+    location: string;
 };
 
 export const CreateProduct = () => {
-    // Используем хук useForm
     const dispatch = useDispatch();
     const {
-        register, // Для регистрации полей формы
-        handleSubmit, // Для обработки отправки формы
-        formState: {errors}, // Для получения ошибок валидации
+        register,
+        handleSubmit,
+        formState: {errors},
     } = useForm<FormData>();
     const [openSnackbar, setOpenSnackbar] = useState(false);
 
@@ -28,7 +27,6 @@ export const CreateProduct = () => {
         }
         setOpenSnackbar(false);
     };
-    // Обработчик отправки формы
     const onSubmit: SubmitHandler<FormData> = (data) => {
         const newProduct = {
             created: "2017-11-04T18:48:46.250Z",
@@ -44,16 +42,14 @@ export const CreateProduct = () => {
             type: "",
             url: "https://rickandmortyapi.com/api/character/1"
         }
-        // dispatch(setProduct(data))
-        dispatch(setProduct( newProduct));
+        dispatch(setProduct(newProduct));
         console.log('Submitted data:', data);
         setOpenSnackbar(true);
-        // Здесь вы можете отправить данные на сервер или обработать их
     };
 
     return (
         <>
-        <Link to={'/products'}>Back</Link>
+            <Link to={'/products'}>Back</Link>
             <form onSubmit={handleSubmit(onSubmit)}>
                 <div>
                     <label>Image URL:</label>
@@ -72,9 +68,9 @@ export const CreateProduct = () => {
                     <input
                         type="text"
                         {...register('name', {
-                            required: 'Name is required', // Обязательное поле
+                            required: 'Name is required',
                             pattern: {
-                                value: /^[a-zA-Z\s]+$/, // Только латинские буквы
+                                value: /^[a-zA-Z\s]+$/,
                                 message: 'Name must contain only Latin letters',
                             },
                         })}
@@ -86,9 +82,9 @@ export const CreateProduct = () => {
                     <input
                         type="text"
                         {...register('location', {
-                            required: 'Location is required', // Обязательное поле
+                            required: 'Location is required',
                             pattern: {
-                                value: /^[a-zA-Z\s]+$/, // Только латинские буквы
+                                value: /^[a-zA-Z\s]+$/,
                                 message: 'Location must contain only Latin letters',
                             },
                         })}
@@ -99,11 +95,11 @@ export const CreateProduct = () => {
             </form>
             <Snackbar
                 open={openSnackbar}
-                autoHideDuration={3000} // Закрыть через 3 секунды
+                autoHideDuration={3000}
                 onClose={handleCloseSnackbar}
-                anchorOrigin={{ vertical: 'bottom', horizontal: 'center' }}
+                anchorOrigin={{vertical: 'bottom', horizontal: 'center'}}
             >
-                <Alert onClose={handleCloseSnackbar} severity="success" sx={{ width: '100%' }}>
+                <Alert onClose={handleCloseSnackbar} severity="success" sx={{width: '100%'}}>
                     Product successfully created!
                 </Alert>
             </Snackbar>

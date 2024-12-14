@@ -1,14 +1,12 @@
-import { useEffect, useState } from "react";
+import {useState} from "react";
 import s from "./products.module.css";
-import { CharacterType, rikAndMortiAPI } from "../api/productsApi";
-import { useDispatch, useSelector } from "react-redux";
-import { setProducts } from "../model/productsSlice";
-import { Card } from "../../../components/Card/Card";
-import { AppRootStateType } from "../../../app/store";
-import { Link, NavLink } from "react-router-dom";
+import {CharacterType} from "../api/productsApi";
+import {useSelector} from "react-redux";
+import {Card} from "../../../components/Card/Card";
+import {AppRootStateType} from "../../../app/store";
+import {Link, NavLink} from "react-router-dom";
 
 export const Products = () => {
-    const dispatch = useDispatch();
     const products = useSelector<AppRootStateType, CharacterType[]>(state => state.products.results);
 
     const [isLiked, setIsLiked] = useState(false);
