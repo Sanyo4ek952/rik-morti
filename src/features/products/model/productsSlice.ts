@@ -26,11 +26,17 @@ export const productsSlice = createSlice({
     reducers: {
         setProducts: (state, action: PayloadAction<InitialState>) => {
             return {...action.payload}
+        },
+        dellProduct: (state, action) => {
+            return {...state, results: state.results.filter(el => el.id !== action.payload.id)}
+        },
+        setLikeProducts: (state, action) => {
+           return {...state, results: state.results.map(el=>el.id === action.payload.id ? {...el, like: !el.like} : {...el})}
         }
     }
 })
 
 // Action creators are generated for each case reducer function
-export const {setProducts} = productsSlice.actions
+export const {setProducts,dellProduct,setLikeProducts} = productsSlice.actions
 
 export default productsSlice.reducer

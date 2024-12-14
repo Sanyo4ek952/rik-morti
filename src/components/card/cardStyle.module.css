@@ -1,0 +1,60 @@
+.card{
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    justify-content: flex-start;
+    border: 1px solid blue;
+    border-radius: 30px;
+    overflow: hidden;
+    cursor: pointer;
+    position: relative;
+}
+.name{
+    font-weight: 600;
+    font-size: 20px;
+    padding: 5px 5px 5px 5px;
+}
+.image{
+    width: 225px;
+    height: 225px;
+    margin-bottom: 10px;
+}
+.location{
+    padding: 5px 5px 5px 5px;
+}
+.status{
+    padding: 6px 12px;
+    border-radius: 4px;
+    background-color: gray;
+    color: white;
+    align-self: flex-start;
+    position: absolute;
+    top: 10px;
+    right: 10px;
+}
+.statusAlive{
+    background-color: darkgreen;
+
+}
+.statusDead{
+    background-color: darkred;
+}
+.deleteCard{
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    color: white;
+    width: 24px;
+    height: 24px;
+    background-color: gray;
+    cursor: pointer;
+}
+.like{
+    cursor: pointer;
+}
+.active{
+    color: mediumvioletred;
+}
+.active > svg{
+    fill: mediumvioletred;
+}
