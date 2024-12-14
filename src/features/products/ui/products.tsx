@@ -2,7 +2,7 @@ import {useEffect, useState} from 'react';
 import s from './products.module.css'
 import {CharacterType, rikAndMortiAPI} from "../api/productsApi";
 import {useDispatch, useSelector} from "react-redux";
-import {InitialState, setProducts} from "../model/productsSlice";
+import {setProducts} from "../model/productsSlice";
 import {Card} from "../../../components/Card/Card";
 import {AppRootStateType} from "../../../app/store";
 
