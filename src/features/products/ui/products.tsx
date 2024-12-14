@@ -20,18 +20,19 @@ export const Products = () => {
             }
         )
     }, [dispatch]);
-
+    console.log(filteredProducts)
     return (
         <>
             <div>
                 <button className={s.button} disabled={!isLiked} onClick={() => setIsLiked(false)}>all</button>
                 <button className={s.button} disabled={isLiked} onClick={() => setIsLiked(true)}>like</button>
+                <Link to={'/create-product'}>Create Product</Link>
             </div>
             <div className={s.container}>
 
                 {filteredProducts.length > 0 ? filteredProducts.map((product: CharacterType) => {
-                    return (<NavLink to={`/products/${product.id}`}>
-                        <Card key={product.id} imageUrl={product.image}
+                    return (<NavLink key={product.id} to={`/products/${product.id}`}>
+                        <Card imageUrl={product.image}
                               name={product.name}
                               location={product.location}
                               status={product.status}

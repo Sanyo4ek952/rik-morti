@@ -1,4 +1,4 @@
-import {createSlice, PayloadAction} from '@reduxjs/toolkit'
+import {createSlice, current, PayloadAction} from '@reduxjs/toolkit'
 import {CharacterType} from "../api/productsApi";
 
 const initialState: InitialState = {
@@ -37,11 +37,15 @@ export const productsSlice = createSlice({
                 results: state.results.map(el => el.id === action.payload.id ? {...el, like: !el.like} : {...el})
             }
         },
+        setProduct: (state, action) => {
+            console.log(current(state.results))
+              state.results.unshift(action.payload);
+        },
 
     }
 })
 
 // Action creators are generated for each case reducer function
-export const {setProducts, dellProduct, setLikeProducts} = productsSlice.actions
+export const {setProducts, dellProduct, setLikeProducts,setProduct} = productsSlice.actions
 
 export default productsSlice.reducer

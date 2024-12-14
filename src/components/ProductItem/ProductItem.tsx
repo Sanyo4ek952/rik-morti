@@ -8,7 +8,6 @@ import {CharacterType} from "../../features/products/api/productsApi";
 export const ProductItem = () => {
     const {id} = useParams(); // Получаем параметр id из URL
     const products = useSelector<AppRootStateType, CharacterType[]>(state => state.products.results);
-    console.log(products, 'ds')
     const product = products.find(p => p.id === Number(id));
     const navigate = useNavigate();
     const goBack = () => {
