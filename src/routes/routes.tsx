@@ -1,7 +1,7 @@
 import {createBrowserRouter, Navigate} from "react-router-dom";
 import App from "../app/App";
 import {Products} from "../features/products/ui/products";
-import {Header} from "../components/Header/Header";
+import {ProductItem} from "../components/ProductItem/ProductItem";
 
 export const router = createBrowserRouter([
     {
@@ -18,8 +18,8 @@ export const router = createBrowserRouter([
                 element: <Products/>,
             },
             {
-                path: ":id",
-                element: <Header/>,
+                path: "/products/:id",
+                element: <ProductItem/>,
             },
         ]
     },
