@@ -8,19 +8,9 @@ import {AppRootStateType} from "../../../app/store";
 import {Link, NavLink} from "react-router-dom";
 
 export const Products = () => {
-    const dispatch = useDispatch();
     const products = useSelector<AppRootStateType, CharacterType[]>(state => state.products.results);
     const [isLiked, setIsLiked] = useState(false);
     const filteredProducts = isLiked ? products.filter(el => el.like === true) : products;
-
-    useEffect(() => {
-        rikAndMortiAPI.getCharacter().then(
-            result => {
-                dispatch(setProducts(result.data.results))
-            }
-        )
-    }, [dispatch]);
-    console.log(filteredProducts)
     return (
         <>
             <div>
