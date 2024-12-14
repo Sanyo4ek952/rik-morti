@@ -8,20 +8,20 @@ import {dellProduct, setLikeProducts} from "../../features/products/model/produc
 type CharacterPropsType = {
     imageUrl: string;
     name: string;
-    status:string
-    item:CharacterType
+    status: string
+    item: CharacterType
     location?: {
         name: string;
         url: string;
     };
 }
 
-export const Card = ({item,status}: CharacterPropsType) => {
+export const Card = ({item, status}: CharacterPropsType) => {
     const dispatch = useDispatch();
     const deleteCard = (id: number) => {
         dispatch(dellProduct({id}))
     }
-    const setLike =(id: number, like: boolean)=>{
+    const setLike = (id: number, like: boolean) => {
         dispatch(setLikeProducts({id, like}))
     }
     return (
@@ -31,7 +31,7 @@ export const Card = ({item,status}: CharacterPropsType) => {
             <div className={s.name}>Name:{item.name}</div>
             <div className={s.location}>Last location:</div>
             <div className={s.location}>{item.location?.name}</div>
-            <button className={s.deleteCard} onClick={()=>deleteCard(item.id)}>Х</button>
+            <button className={s.deleteCard} onClick={() => deleteCard(item.id)}>Х</button>
             <button className={`${s.like} ${item.like ? s.active : ''} `} onClick={() => setLike(item.id, true)}>
                 <svg width="24" height="24" viewBox="0 0 24 24" fill="inherit" xmlns="http://www.w3.org/2000/svg">
                     <g clip-path="url(#clip0_306_4260)">

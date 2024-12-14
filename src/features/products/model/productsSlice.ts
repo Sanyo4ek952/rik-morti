@@ -1,4 +1,5 @@
 import {createSlice, PayloadAction} from '@reduxjs/toolkit'
+import {CharacterType} from "../api/productsApi";
 
 const initialState: InitialState = {
     info: {
@@ -7,7 +8,7 @@ const initialState: InitialState = {
         next: "https://rickandmortyapi.com/api/character/?page=2",
         prev: null
     },
-    results: []
+    results: [],
 
 }
 export type InitialState = {
@@ -24,19 +25,23 @@ export const productsSlice = createSlice({
     name: 'products',
     initialState,
     reducers: {
-        setProducts: (state, action: PayloadAction<InitialState>) => {
-            return {...action.payload}
+        setProducts: (state, action: PayloadAction<CharacterType[]>) => {
+            return {...state, results: action.payload}
         },
         dellProduct: (state, action) => {
             return {...state, results: state.results.filter(el => el.id !== action.payload.id)}
         },
         setLikeProducts: (state, action) => {
-           return {...state, results: state.results.map(el=>el.id === action.payload.id ? {...el, like: !el.like} : {...el})}
-        }
+            return {
+                ...state,
+                results: state.results.map(el => el.id === action.payload.id ? {...el, like: !el.like} : {...el})
+            }
+        },
+
     }
 })
 
 // Action creators are generated for each case reducer function
-export const {setProducts,dellProduct,setLikeProducts} = productsSlice.actions
+export const {setProducts, dellProduct, setLikeProducts} = productsSlice.actions
 
 export default productsSlice.reducer

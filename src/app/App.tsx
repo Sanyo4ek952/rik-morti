@@ -1,14 +1,18 @@
 import React from 'react';
-import logo from './logo.svg';
 import './App.css';
 import {Products} from "../features/products/ui/products";
 
+import {Outlet} from "react-router-dom";
+
 function App() {
-  return (
-    <div className="App">
-     <Products/>
-    </div>
-  );
+    return (
+        <div className="App">
+            <div className={'body'}>
+                <Outlet/>
+            </div>
+            <Products/>
+        </div>
+    );
 }
 
 export default App;

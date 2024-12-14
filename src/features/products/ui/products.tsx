@@ -1,39 +1,41 @@
-import React, {useEffect} from 'react';
+import {useEffect, useState} from 'react';
 import s from './products.module.css'
 import {CharacterType, rikAndMortiAPI} from "../api/productsApi";
 import {useDispatch, useSelector} from "react-redux";
 import {InitialState, setProducts} from "../model/productsSlice";
-import {Card} from "../../../components/card/Card";
+import {Card} from "../../../components/Card/Card";
+import {AppRootStateType} from "../../../app/store";
 
 export const Products = () => {
     const dispatch = useDispatch();
+    const products = useSelector<AppRootStateType, CharacterType[]>(state => state.products.results);
+    const [isLiked, setIsLiked] = useState(false);
+    const filteredProducts = isLiked ? products.filter(el => el.like === true) : products;
+
     useEffect(() => {
         rikAndMortiAPI.getCharacter().then(
             result => {
-                dispatch(setProducts(result.data))
+                dispatch(setProducts(result.data.results))
             }
         )
     }, [dispatch]);
 
-const products = useSelector<InitialState,CharacterType[]>(state => state.results);
-
-return (
-    <div className={s.container}>
-<button>all</button>
-<button>like</button>
-        {products.length > 0 ? products.map((product: CharacterType) => {
-            return (<Card key={product.id}
-                          imageUrl={product.image}
-                          name={product.name}
-                          location={product.location}
-                          status={product.status}
-                          item={product}
-            />)
-        }) : 'No character found'}
-    </div>
-);
+    return (
+        <div className={s.container}>
+            <button disabled={!isLiked} onClick={() => setIsLiked(false)}>all</button>
+            <button disabled={isLiked} onClick={() => setIsLiked(true)}>like</button>
+            {filteredProducts.length > 0 ? filteredProducts.map((product: CharacterType) => {
+                return (<Card key={product.id}
+                              imageUrl={product.image}
+                              name={product.name}
+                              location={product.location}
+                              status={product.status}
+                              item={product}
+                />)
+            }) : 'No character found'}
+        </div>
+    );
 }
-;
 
 
 
