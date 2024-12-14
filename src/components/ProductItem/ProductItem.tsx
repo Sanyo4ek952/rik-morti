@@ -6,7 +6,7 @@ import {AppRootStateType} from "../../app/store";
 import {CharacterType} from "../../features/products/api/productsApi";
 
 export const ProductItem = () => {
-    const {id} = useParams(); // Получаем параметр id из URL
+    const {id} = useParams();
     const products = useSelector<AppRootStateType, CharacterType[]>(state => state.products.results);
     const product = products.find(p => p.id === Number(id));
     const navigate = useNavigate();

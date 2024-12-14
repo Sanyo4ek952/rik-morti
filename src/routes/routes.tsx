@@ -1,4 +1,4 @@
-import {createBrowserRouter, createHashRouter, Navigate} from "react-router-dom";
+import {createHashRouter, Navigate} from "react-router-dom";
 import App from "../app/App";
 import {Products} from "../features/products/ui/products";
 import {ProductItem} from "../components/ProductItem/ProductItem";

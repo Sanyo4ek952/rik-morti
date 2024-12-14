@@ -1,12 +1,12 @@
-import { useState, useEffect } from "react";
-import { Pagination } from "@mui/material";  // Импортируем компонент пагинации из MUI
+import {ChangeEvent, useEffect, useState} from "react";
+import {Pagination} from "@mui/material";
 import s from "./products.module.css";
-import { CharacterType, rikAndMortiAPI, ResponseType } from "../api/productsApi";
-import { useDispatch, useSelector } from "react-redux";
-import { setProducts } from "../model/productsSlice";
-import { Card } from "../../../components/Card/Card";
-import { AppRootStateType } from "../../../app/store";
-import { Link, NavLink } from "react-router-dom";
+import {CharacterType, ResponseType, rikAndMortiAPI} from "../api/productsApi";
+import {useDispatch, useSelector} from "react-redux";
+import {setProducts} from "../model/productsSlice";
+import {Card} from "../../../components/Card/Card";
+import {AppRootStateType} from "../../../app/store";
+import {Link, NavLink} from "react-router-dom";
 
 export const Products = () => {
     const dispatch = useDispatch();
@@ -17,10 +17,10 @@ export const Products = () => {
     const [speciesFilter, setSpeciesFilter] = useState<string>("");
     const [genderFilter, setGenderFilter] = useState<string>("");
     const [searchText, setSearchText] = useState<string>("");
-    const [currentPage, setCurrentPage] = useState(1);  // Текущая страница
-    const [totalPages, setTotalPages] = useState(1);  // Общее количество страниц
+    const [currentPage, setCurrentPage] = useState(1);
+    const [totalPages, setTotalPages] = useState(1);
 
-    // Фильтрация продуктов
+
     const filteredProducts = products.filter(product => {
         const matchesLiked = isLiked ? product.like === true : true;
         const matchesStatus = statusFilter ? product.status === statusFilter : true;
@@ -33,26 +33,26 @@ export const Products = () => {
         return matchesLiked && matchesStatus && matchesSpecies && matchesGender && matchesSearch;
     });
 
-    // Функция для загрузки данных с учётом пагинации
     const fetchData = async (page: number) => {
         try {
-            const response = await rikAndMortiAPI.getCharacter(page);  // Передаём номер страницы в API запрос
+            const response = await rikAndMortiAPI.getCharacter(page);
             const data: ResponseType = response.data;
-            dispatch(setProducts(data.results));  // Сохраняем данные в Redux
-            setTotalPages(data.info.pages);  // Устанавливаем общее количество страниц
+            dispatch(setProducts(data.results));
+            setTotalPages(data.info.pages);
         } catch (error) {
             console.error("Error fetching data", error);
         }
     };
 
-    // Запрос данных при смене текущей страницы
-    useEffect(() => {
-        fetchData(currentPage);  // Загружаем данные для текущей страницы
-    }, [currentPage]);
 
-    // Обработчик изменения страницы
-    const handleChangePage = (event: React.ChangeEvent<unknown>, page: number) => {
-        setCurrentPage(page);  // Обновляем текущую страницу
+    useEffect(() => {
+        fetchData(currentPage);
+    }, [currentPage, fetchData]);
+
+
+    const handleChangePage = (event: ChangeEvent<unknown>, page: number) => {
+        setCurrentPage(page);
+        window.scrollTo(0, 0);
     };
 
     return (
